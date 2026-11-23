@@ -98,6 +98,7 @@
   .rest.warn .t{color:#f97316}
   .rest.done{background:var(--ok)}
   .rest.done .t{color:#fff}
+  .restgo{flex:none;padding:14px 12px;border:1px solid var(--line);border-radius:12px;background:var(--card);color:var(--ink);font-weight:700;font-size:16px;font-variant-numeric:tabular-nums}
   .backup{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
   .backup button,.backup label{flex:1;text-align:center;padding:11px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:10px;font-weight:600;font-size:14px;cursor:pointer}
   .backup input{display:none}
@@ -155,6 +156,7 @@
     <button id="restMin" aria-label="15 seconden minder">−15</button><button id="restPlus" aria-label="15 seconden meer">+15</button><button id="restStop" aria-label="Timer stoppen">✕</button>
   </div></div>
   <div class="in">
+    <button class="restgo" id="restGo" type="button" aria-label="Pauzetimer starten">⏱ <span id="restGoT">1:30</span></button>
     <button class="btn" id="save">Training opslaan</button>
     <span class="status" id="status"></span>
   </div>
@@ -709,8 +711,11 @@ const REST = (() => {
     base = Math.min(600, Math.max(15, base + d));
     try { localStorage.setItem('restSec', base); } catch (e) {}
     if (tick){ end += d*1000; if (end - Date.now() > 10000) warned = false; draw(); }
-    L.textContent = 'Pauze · ' + mmss(base);
+    L.textContent = 'Pauze · ' + mmss(base); goLabel();
   }
+  $('restGo').onclick = start;
+  const goLabel = () => { $('restGoT').textContent = mmss(base); };
+  goLabel();
   $('restMin').onclick = () => adjust(-15);
   $('restPlus').onclick = () => adjust(15);
   $('restStop').onclick = stop;

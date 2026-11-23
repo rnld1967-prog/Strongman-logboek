@@ -1,6 +1,6 @@
 // Zorgt dat het logboek ook zonder internet opent (bijv. in de sportschool).
 // Verhoog VERSION als je index.html aanpast, dan haalt de app de nieuwe versie op.
-const VERSION = 'logboek-v1';
+const VERSION = 'logboek-v2';
 const FILES = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './apple-touch-icon.png'];
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES)).then(() => self.skipWaiting()));
